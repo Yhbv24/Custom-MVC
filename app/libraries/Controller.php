@@ -28,6 +28,11 @@ class Controller
 
         // Variables to pass into Twig template as an object
         $this->varsToPass = new stdClass();
+
+        // Load constants
+        $this->varsToPass->URL = URL;
+        $this->varsToPass->APP_ROOT = APP_ROOT;
+        $this->varsToPass->SITE_NAME = SITE_NAME;
     }
 
     /**

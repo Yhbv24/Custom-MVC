@@ -1,9 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'inc/base.html.twig' %}
+
+{% block head %}
+
+    {{ parent() }}
+
+{% endblock %}
 
 {% block content %}
 
-<div class="container">
-    <h1 class="center">Welcome to MVC</h1>
-</div>
+    <div class="container">
+        <h1 class="center">Welcome to MVC</h1>
+    </div>
 
 {% endblock %}
