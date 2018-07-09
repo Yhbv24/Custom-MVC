@@ -1,5 +1,13 @@
 <?php
 
+require_once('password.php');
+
+// Database parameters
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASSWORD', $password);
+define('DB_NAME', 'custom_mvc');
+
 // App root
 define('APP_ROOT', dirname(dirname(__FILE__)));
 

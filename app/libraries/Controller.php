@@ -10,7 +10,7 @@ class Controller
     /**
      * @var Twig_Environment $view The Twig object, used to render templates
      * @var Model $model The controller's primary model
-     * @var array $varsToPass Array of data to pass to the view
+     * @var stdClass $varsToPass Array of data to pass to the view
      */
     protected $view;
     protected $model;
@@ -42,9 +42,13 @@ class Controller
      */
     protected function model(string $model)
     {
-        require_once('../app/models/' . $model . '.php');
+        if (file_exists('../app/models/' . $model . '.php')) {
+            require_once('../app/models/' . $model . '.php');
+        }
 
-        return new $model;
+        $this->model = new $model;
+
+        return $this->model;
     }
 
     /**
