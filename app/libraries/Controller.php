@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * Application core controller
+ * ---------------------------
+ * The base controller for the app
+ */
+class Controller
+{
+    /**
+     * @var Twig_Environment $view The Twig object, used to render templates
+     * @var Model $model The controller's primary model
+     * @var array $varsToPass Array of data to pass to the view
+     */
+    protected $view;
+    protected $model;
+    protected $varsToPass;
+
+    /**
+     * Sets the Twig view
+     * @return void
+     */
+    public function __construct()
+    {
+        // Twig setup
+        $loader = new Twig_Loader_Filesystem('../app/views');
+        $this->view = new Twig_Environment($loader);
+
+        // Variables to pass into Twig template as an object
+        $this->varsToPass = new stdClass();
+    }
+
+    /**
+     * Sets the controller's main model
+     * @param string $model The string filename
+     * @return void
+     */
+    protected function model(string $model)
+    {
+        require_once('../app/models/' . $model . '.php');
+
+        return new $model;
+    }
+
+    /**
+     * Renders templates
+     * @param string $view The view filename
+     * @return void
+     */
+    protected function view(string $view)
+    {
+        if (file_exists('../app/views/' . $view . '.html.twig')) {
+            echo $this->view->render($view . '.html.twig', (array) $this->varsToPass);
+        }
+    }
+}

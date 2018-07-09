@@ -13,7 +13,7 @@ class Core
      * @var $currentMethod - The current method on that controller
      * @var $params - The separated controller/method/params
      */
-    protected $currentController = 'Pages';
+    protected $currentController = 'Home';
     protected $currentMethod = 'index';
     protected $params = [];
 
@@ -54,8 +54,9 @@ class Core
      */
     private function getURL()
     {
-        if (isset($_GET['url'])) {
-            $url = rtrim($_GET('url'), '/');
+        if (isset($_SERVER['QUERY_STRING'])) {
+            $url = str_replace('url=', '', $_SERVER['QUERY_STRING']);
+            $url = rtrim($url, '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);
 
