@@ -10,6 +10,12 @@
 
     <div class="container">
         <h1 class="center">Welcome to MVC</h1>
+
+        {% if users %}
+            {% for user in users %}
+            <p>{{ user.first_name ~ ' ' ~ user.last_name }}</p>
+            {% endfor %}
+        {% endif %}
     </div>
 
 {% endblock %}

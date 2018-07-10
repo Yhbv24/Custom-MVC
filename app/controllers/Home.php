@@ -15,6 +15,7 @@ class Home extends Controller
      */
     public function index()
     {
+        $this->varsToPass->users = $this->model->getUsers();
         $this->view('index');
     }
 }

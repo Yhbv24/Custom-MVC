@@ -25,6 +25,7 @@ class Controller
         // Twig setup
         $loader = new Twig_Loader_Filesystem('../app/views');
         $this->view = new Twig_Environment($loader);
+        $this->view->addExtension(new Twig_Extension_Debug());
 
         // Variables to pass into Twig template as an object
         $this->varsToPass = new stdClass();
