@@ -64,7 +64,7 @@ class Database
      * @param string $sql The query to run
      * @return void
      */
-    public function query(string $sql)
+    private function query(string $sql)
     {
         $this->stmt = $this->dbh->prepare($sql);
 
@@ -78,7 +78,7 @@ class Database
      * @param mixed $type
      * @return void
      */
-    public function bind($param, $value, $type = null)
+    private function bind($param, $value, $type = null)
     {
         if (is_null($type)) {
             switch(true) {
@@ -103,7 +103,7 @@ class Database
      * Executes query
      * @return mixed
      */
-    public function execute()
+    private function execute()
     {
         return $this->stmt->execute();
     }
@@ -112,7 +112,7 @@ class Database
      * Returns results of the query as an object
      * @return Object Query results
      */
-    public function results()
+    private function results()
     {
         $this->execute();
 
@@ -123,7 +123,7 @@ class Database
      * Returns a single row
      * @return Object Query results
      */
-    public function single()
+    private function single()
     {
         $this->execute();
         
@@ -134,8 +134,20 @@ class Database
      * Gets count of rows
      * @return int Count of returned rows
      */
-    public function rowCount()
+    private function rowCount()
     {
         return $this->stmt->rowCount();
+    }
+
+    /**
+     * Returns all rows in a given table
+     * @param string $table
+     * @return Object
+     */
+    public function getAll(string $table)
+    {
+        $query = 'SELECT * FROM ' . $table;
+
+        return self::getInstance()->query($query)->results();
     }
 }

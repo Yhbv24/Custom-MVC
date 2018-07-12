@@ -9,11 +9,4 @@ class User extends Database
     {
         $this->db = parent::getInstance();
     }
-
-    public function getUsers()
-    {
-        $query = 'SELECT * FROM ' . self::$tableName;
-
-        return $this->db->query($query)->results();
-    }
 }

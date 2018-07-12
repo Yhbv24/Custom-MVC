@@ -5,7 +5,7 @@
  * ---------------------------
  * The base controller for the app
  */
-class Controller
+abstract class Controller
 {
     /**
      * @var Twig_Environment $view The Twig object, used to render templates
@@ -20,7 +20,7 @@ class Controller
      * Sets the Twig view
      * @return void
      */
-    public function __construct()
+    protected function __construct()
     {
         // Twig setup
         $loader = new Twig_Loader_Filesystem('../app/views');
