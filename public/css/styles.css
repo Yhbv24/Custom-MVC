@@ -1,7 +1,14 @@
 body {
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .center {
     text-align: center;
+}
+
+.home {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

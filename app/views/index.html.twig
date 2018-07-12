@@ -8,14 +8,13 @@
 
 {% block content %}
 
+<div class="home">
     <div class="container">
-        <h1 class="center">Welcome to MVC</h1>
-
-        {% if users %}
-            {% for user in users %}
-            <p>{{ user.first_name ~ ' ' ~ user.last_name }}</p>
-            {% endfor %}
-        {% endif %}
+        <h1 class="center">Welcome</h1>
+        <hr />
+        <p>This is a custom MVC framework made by Ash Laidlaw. <a href="{{ URL }}/about">Click here</a> to learn more!</p>
     </div>
+
+</div>
 
 {% endblock %}

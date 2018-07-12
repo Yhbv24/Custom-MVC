@@ -1,0 +1,27 @@
+{% extends 'inc/base.html.twig' %}
+
+{% block head %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="home">
+    <div class="container">
+        <h1 class="center">About</h1>
+        <hr />
+        <p>This project was to learn more about how to create an MVC from scratch. Technologies involces in this project:</p>
+        <ul>
+            <li>PHP</li>
+            <li>Composer</li>
+            <li>Twig</li>
+        </ul>
+        <p><a href="{{ URL }}">Click here</a> to go back.</p>
+    </div>
+
+</div>
+    <p>{{ name }}</p>
+
+{% endblock %}
