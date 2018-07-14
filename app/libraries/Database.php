@@ -144,7 +144,7 @@ class Database
      * @param string $table
      * @return Object
      */
-    public function getAll(string $table)
+    public static function all(string $table)
     {
         $query = 'SELECT * FROM ' . $table;
 
