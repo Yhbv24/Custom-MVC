@@ -64,46 +64,47 @@ class Database
      * @param string $sql The query to run
      * @return void
      */
-    private function query(string $sql)
+    public function prepare(string $sql)
     {
         $this->stmt = $this->dbh->prepare($sql);
-
-        return $this;
     }
 
     /**
      * Binds query
-     * @param mixed $param
-     * @param mixed $value
+     * @param array $params
      * @param mixed $type
      * @return void
      */
-    private function bind($param, $value, $type = null)
+    public function bind(array $params, $type = null)
     {
-        if (is_null($type)) {
-            switch(true) {
-                case is_int($value):
-                    $type = PDO::PARAM_INT;
-                    break;
-                case is_bool($value):
-                    $type = PDO::PARAM_BOOL;
-                    break;
-                case is_null($value):
-                    $type = PDO::PARAM_NULL;
-                    break;
-                default:
-                    $type = PDO::PARAM_STR;
+        if (is_array($params)) {
+            foreach ($params as $key => $value) {
+                if (is_null($type)) {
+                    switch(true) {
+                        case is_int($value):
+                            $type = PDO::PARAM_INT;
+                            break;
+                        case is_bool($value):
+                            $type = PDO::PARAM_BOOL;
+                            break;
+                        case is_null($value):
+                            $type = PDO::PARAM_NULL;
+                            break;
+                        default:
+                            $type = PDO::PARAM_STR;
+                    }
+                }
+    
+                $this->stmt->bindValue($key, $value, $type);
             }
         }
-
-        $this->stmt->bindValue($param, $value, $type);
     }
 
     /**
      * Executes query
      * @return mixed
      */
-    private function execute()
+    public function execute()
     {
         return $this->stmt->execute();
     }
@@ -112,7 +113,7 @@ class Database
      * Returns results of the query as an object
      * @return Object Query results
      */
-    private function results()
+    public function results()
     {
         $this->execute();
 
@@ -123,7 +124,7 @@ class Database
      * Returns a single row
      * @return Object Query results
      */
-    private function single()
+    public function single()
     {
         $this->execute();
         
@@ -134,20 +135,8 @@ class Database
      * Gets count of rows
      * @return int Count of returned rows
      */
-    private function rowCount()
+    public function rowCount()
     {
         return $this->stmt->rowCount();
-    }
-
-    /**
-     * Returns all rows in a given table
-     * @param string $table
-     * @return Object
-     */
-    public static function all(string $table)
-    {
-        $query = 'SELECT * FROM ' . $table;
-
-        return self::getInstance()->query($query)->results();
     }
 }

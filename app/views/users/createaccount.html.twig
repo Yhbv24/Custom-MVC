@@ -1,0 +1,55 @@
+{% extends 'inc/base.html.twig' %}
+
+{% block head %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'inc/navbar.html.twig' %}
+
+<div class="create-account">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto" style="margin-top: 50px;">
+                <h1 class="center">Create Account</h1>
+                <hr />
+                <form method="POST" action="{{ URL }}/users/createAccount">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">First Name:</span>
+                        </div>
+                        <input type="text" class="form-control {{ firstNameError ? 'is-invalid' }}" name="first-name" value="{{ params['first-name'] }}" />
+                        <span class="invalid-feedback">{{ firstNameError }}</span>
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Last Name:</span>
+                        </div>
+                        <input type="text" class="form-control {{ lastNameError ? 'is-invalid' }}" name="last-name" value="{{ params['last-name'] }}" />
+                        <span class="invalid-feedback">{{ lastNameError }}</span>
+                    </div>
+                    <div class="input-group input-group-sm input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Email:</span>
+                        </div>
+                        <input type="email" class="form-control {{ emailError or emailEmptyError ? 'is-invalid' }}" name="email-address" value="{{ params['email-address'] }}" />
+                        <span class="invalid-feedback">{{ emailError ? emailError }}{{ emailEmptyError ? emailEmptyError }}</span>
+                    </div>
+                    <div class="input-group input-group-sm input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Password:</span>
+                        </div>
+                        <input type="password" class="form-control {{ passwordError ? 'is-invalid' }}" name="password" />
+                        <span class="invalid-feedback">{{ passwordError }}</span>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary center">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

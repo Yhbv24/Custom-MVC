@@ -4,11 +4,16 @@ body {
 
 .center {
     text-align: center;
+    margin: 0 auto;
 }
 
-.home {
+.div-center {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.create-account {
+    font-size: 14px;
 }

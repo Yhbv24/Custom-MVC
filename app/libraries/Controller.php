@@ -34,6 +34,9 @@ abstract class Controller
         $this->varsToPass->URL = URL;
         $this->varsToPass->APP_ROOT = APP_ROOT;
         $this->varsToPass->SITE_NAME = SITE_NAME;
+
+        session_start();
+        $this->varsToPass->USER = Session::get('user-id');
     }
 
     /**
@@ -62,5 +65,19 @@ abstract class Controller
         if (file_exists('../app/views/' . $view . '.html.twig')) {
             echo $this->view->render($view . '.html.twig', (array) $this->varsToPass);
         }
+    }
+
+    protected function redirect(string $page = '')
+    {
+        header('location: ' . URL . '/' . $page);
+    }
+
+    protected function beginSession(Object $user)
+    {
+        Session::set('user-id', $user->user_id);
+        Session::set('email', $user->email_address);
+        Session::set('name', $user->first_name . ' ' . $user->last_name);
+
+        $this->redirect();
     }
 }
