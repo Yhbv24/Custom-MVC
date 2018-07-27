@@ -42,7 +42,7 @@ class Users extends Controller
                 $this->varsToPass->emailEmptyError = 'Please enter an email address.';
             }
     
-            if (empty($params['password'])) {
+            if (empty($params['password']) || empty($params['retype-password'])) {
                 $this->varsToPass->passwordError = 'Please enter a password.';
             }
 
@@ -57,6 +57,14 @@ class Users extends Controller
                     // Capitalize names
                     $params['first-name'] = ucwords($params['first-name']);
                     $params['last-name'] = ucwords($params['last-name']);
+
+                    if ($params['password'] !== $params['retype-password']) {
+                        $this->varsToPass->passwordMismatch = 'The passwords do not match.';
+                        $this->varsToPass->params = $params;
+                        $this->view('users/createaccount');
+
+                        return;
+                    }
 
                     // Hash password
                     $params['password'] = password_hash($params['password'], PASSWORD_DEFAULT);
@@ -86,9 +94,18 @@ class Users extends Controller
      */
     public function login()
     {
+        // Set default values for template
+        $this->varsToPass->params = [
+            'email-address' => '',
+            'password' => ''
+        ];
+
         if (Request::isPost()) {
             $params = Validator::filterPostForm($_POST);
 
+            // Send values back to the view
+            $this->varsToPass->params = $params;
+            
             // Get user
             $user = $this->model->login($params['email-address'], $params['password']);
 
@@ -100,12 +117,15 @@ class Users extends Controller
             if (empty($params['password'])) {
                 $this->varsToPass->passwordError = 'Please enter a password.';
             }
-
-            if ($user) {
-                // Log user in and redirect to home page
-                parent::beginSession($user);
-            } else {
-                $this->redirect('users/login');
+            
+            // Make sure nothing is empty before continuing
+            if (Validator::notEmpty($params)) {
+                if ($user) {
+                    // Log user in and redirect to home page
+                    parent::beginSession($user);
+                } else {
+                    $this->redirect('users/login');
+                }
             }
         }
 
@@ -118,12 +138,18 @@ class Users extends Controller
      */
     public function logout()
     {
-        foreach (Session::all() as $param) {
-            unset($param);
-        }
-        
+        session_unset();
         session_destroy();
 
         $this->redirect();
+    }
+
+    /**
+     * User settings page
+     * @return void
+     */
+    public function settings()
+    {
+        $this->view('users/settings');
     }
 }

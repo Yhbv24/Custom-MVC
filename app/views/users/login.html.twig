@@ -21,8 +21,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Email:</span>
                         </div>
-                        <input type="email" class="form-control {{ emailError or emailEmptyError ? 'is-invalid' }}" name="email-address" value="{{ params['email-address'] }}" />
-                        <span class="invalid-feedback">{{ emailError ? emailError }}{{ emailEmptyError ? emailEmptyError }}</span>
+                        <input type="email" class="form-control {{ emailEmptyError ? 'is-invalid' }}" name="email-address" value="{{ params['email-address'] }}" />
+                        <span class="invalid-feedback">{{ emailEmptyError ? emailEmptyError }}</span>
                     </div>
                     <div class="input-group input-group-sm input-group-sm mb-3">
                         <div class="input-group-prepend">

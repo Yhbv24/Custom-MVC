@@ -10,37 +10,37 @@
 
 {% include 'inc/navbar.html.twig' %}
 
-<div class="create-account">
+<div class="settings">
     <div class="container">
         <div class="row">
             <div class="col-md-6 mx-auto" style="margin-top: 50px;">
-                <h1 class="center">Create Account</h1>
+                <h1 class="center">My Account Settings</h1>
                 <hr />
-                <form method="POST" action="{{ URL }}/users/createAccount">
+                  <form method="POST" action="{{ URL }}/users/createAccount">
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">First Name:</span>
                         </div>
-                        <input type="text" class="form-control {{ firstNameError ? 'is-invalid' }}" name="first-name" value="{{ params['first-name'] }}" />
+                        <input type="text" class="form-control {{ firstNameError ? 'is-invalid' }}" name="first-name" value="{{ SESSION['first-name'] }}" />
                         <span class="invalid-feedback">{{ firstNameError }}</span>
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Last Name:</span>
                         </div>
-                        <input type="text" class="form-control {{ lastNameError ? 'is-invalid' }}" name="last-name" value="{{ params['last-name'] }}" />
+                        <input type="text" class="form-control {{ lastNameError ? 'is-invalid' }}" name="last-name" value="{{ SESSION['last-name'] }}" />
                         <span class="invalid-feedback">{{ lastNameError }}</span>
                     </div>
                     <div class="input-group input-group-sm input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Email:</span>
                         </div>
-                        <input type="email" class="form-control {{ emailError or emailEmptyError ? 'is-invalid' }}" name="email-address" value="{{ params['email-address'] }}" />
+                        <input type="email" class="form-control {{ emailError or emailEmptyError ? 'is-invalid' }}" name="email-address" value="{{ SESSION['email-address'] }}" />
                         <span class="invalid-feedback">{{ emailError ? emailError }} {{ emailEmptyError ? emailEmptyError }}</span>
                     </div>
                     <div class="input-group input-group-sm input-group-sm mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Password:</span>
+                            <span class="input-group-text" id="basic-addon1">Change Password:</span>
                         </div>
                         <input type="password" class="form-control {{ passwordError or passwordMismatch ? 'is-invalid' }}" name="password" />
                         <span class="invalid-feedback">{{ passwordError }} {{ passwordMismatch }}</span>
@@ -52,7 +52,7 @@
                         <input type="password" class="form-control {{ passwordError or passwordMismatch ? 'is-invalid' }}" name="retype-password" />
                         <span class="invalid-feedback">{{ passwordError }} {{ passwordMismatch }}</span>
                     </div>
-                    <button type="submit" class="btn btn-sm btn-primary center">Create Account</button>
+                    <button type="submit" class="btn btn-sm btn-primary center">Save</button>
                 </form>
             </div>
         </div>

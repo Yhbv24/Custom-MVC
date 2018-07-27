@@ -36,7 +36,7 @@ abstract class Controller
         $this->varsToPass->SITE_NAME = SITE_NAME;
 
         session_start();
-        $this->varsToPass->USER = Session::get('user-id');
+        $this->varsToPass->SESSION = Session::all();
     }
 
     /**
@@ -74,9 +74,10 @@ abstract class Controller
 
     protected function beginSession(Object $user)
     {
+        Session::set('first-name', $user->first_name);
+        Session::set('last-name', $user->last_name);
+        Session::set('email-address', $user->email_address);
         Session::set('user-id', $user->user_id);
-        Session::set('email', $user->email_address);
-        Session::set('name', $user->first_name . ' ' . $user->last_name);
 
         $this->redirect();
     }
